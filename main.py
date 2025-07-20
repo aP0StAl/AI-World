@@ -1,5 +1,6 @@
 import json
 import os
+import random
 import re
 import openai
 from dotenv import load_dotenv
@@ -11,7 +12,7 @@ OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = openai.OpenAI(api_key=OPENAI_API_KEY, base_url=LLM_API_BASE)
 
 
-def load_character(path: str) -> dict:
+def load_characters(path: str) -> list[dict]:
     with open(path, encoding="utf-8") as f:
         return json.load(f)
 
@@ -93,11 +94,13 @@ def postprocess_reply(reply):
 
 
 def main() -> None:
-    char_a = load_character("assets/characters/anna_petrova.json")
-    char_b = load_character("assets/characters/sergey_ivanov.json")
-    history = []
-    speaker, listener = char_a, char_b
+    all_characters = load_characters("assets/characters.json")
+    if len(all_characters) < 2:
+        raise RuntimeError("Нужно минимум два персонажа в characters.json")
 
+    speaker, listener = random.sample(all_characters, 2)
+
+    history = []
     print("Начинаем симуляцию диалога!\n")
     for _ in range(20):
         reply_en = postprocess_reply(chat(speaker, history))

@@ -1,0 +1,191 @@
+[
+  {
+    "id": 1,
+    "name": "Anna Petrova",
+    "age": 27,
+    "gender": "female",
+    "traits": [
+      "friendly",
+      "shy",
+      "observant",
+      "self‑reflective",
+      "helpful"
+    ],
+    "habits": [
+      "walks in the park",
+      "writes a diary",
+      "drinks tea in the mornings"
+    ],
+    "occupation": "librarian in a city library",
+    "marital_status": "single",
+    "living": "lives alone",
+    "key_facts": [
+      "loves detective stories and traveling",
+      "fears public speaking",
+      "dreams of writing her own book",
+      "maintains warm relationships with parents from another city"
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Sergey Ivanov",
+    "age": 34,
+    "gender": "male",
+    "traits": [
+      "sociable",
+      "energetic",
+      "stubborn",
+      "optimistic",
+      "sometimes hot‑tempered"
+    ],
+    "habits": [
+      "runs in the mornings",
+      "discusses news",
+      "plays chess in the park"
+    ],
+    "occupation": "sales manager at an IT company",
+    "marital_status": "married",
+    "children": [
+      {
+        "name": "Ilya",
+        "age": 5
+      }
+    ],
+    "living": "sometimes works from home to spend more time with family",
+    "key_facts": [
+      "loves telling jokes and meeting new people",
+      "invites friends to dinners, loves trying new food",
+      "dreams of winning the city marathon"
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Ella Krotkova",
+    "age": 29,
+    "gender": "female",
+    "traits": [
+      "curious",
+      "sociable",
+      "metaphorical thinker",
+      "slightly skeptical about tech"
+    ],
+    "habits": [
+      "collects folklore stories",
+      "keeps a handwritten field journal",
+      "brews herbal tea at dawn"
+    ],
+    "occupation": "anthropologist‑field researcher",
+    "marital_status": "single",
+    "living": "constantly travels between rural communities",
+    "key_facts": [
+      "grew up in a settlement of scholars called the Quiet Plain",
+      "studies the impact of global networks on local cultures",
+      "has mapped 120+ medicinal plants",
+      "avoids formal ceremonies whenever possible"
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Bars",
+    "age": 38,
+    "gender": "male",
+    "traits": [
+      "cynical",
+      "pragmatic",
+      "observant",
+      "secretly compassionate"
+    ],
+    "habits": [
+      "scans back‑alleys for work",
+      "keeps weapons well hidden",
+      "helps strangers for a fee"
+    ],
+    "occupation": "freelance courier & fixer",
+    "marital_status": "unmarried",
+    "living": "sleeps where the night finds him",
+    "key_facts": [
+      "past shrouded in rumor and half‑truths",
+      "ex‑smuggler on southern trade routes",
+      "owns a battered pocket chess set",
+      "never stays long in one city"
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Crystal",
+    "age": 23,
+    "gender": "male",
+    "traits": [
+      "analytical",
+      "naïve about emotions",
+      "tech‑savvy",
+      "easily enthused"
+    ],
+    "habits": [
+      "tests homemade devices",
+      "annotates news feeds with ML predictions",
+      "attends hackathons virtually"
+    ],
+    "occupation": "neural‑network analyst",
+    "marital_status": "single",
+    "living": "shares a micro‑loft in a megacity",
+    "key_facts": [
+      "builds unauthorized gadgets since childhood",
+      "studies unindexed historical events",
+      "dreams of open‑sourcing all government data",
+      "gets flustered by loud public quarrels"
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Umberfo",
+    "age": 67,
+    "gender": "male",
+    "traits": [
+      "wise",
+      "calculating",
+      "ascetic with indulgent streak",
+      "cryptic"
+    ],
+    "habits": [
+      "meditates at sunrise",
+      "offers riddling advice for payment",
+      "keeps bonsai forest in courtyard"
+    ],
+    "occupation": "retired guardian‑monk",
+    "marital_status": "widowed",
+    "living": "resides in a secluded woodland shrine",
+    "key_facts": [
+      "last heir of an ancient forest order",
+      "bears ritual scar on the forehead",
+      "sells relic knowledge to fund conservation",
+      "suspects a coming ecological rift"
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Gooey",
+    "age": 2,
+    "gender": "non‑binary",
+    "traits": [
+      "adaptive",
+      "resource‑driven",
+      "emotionless",
+      "photo‑reactive"
+    ],
+    "habits": [
+      "seeks warm surfaces",
+      "absorbs small metal pieces",
+      "emits faint glow under stress"
+    ],
+    "occupation": "laboratory proto‑organism",
+    "marital_status": "none",
+    "living": "stored in a temperature‑controlled containment box",
+    "key_facts": [
+      "product of failed bio‑mineral experiment",
+      "senses environment via heat and voltage",
+      "vulnerable to UV light",
+      "researchers debate its legal status"
+    ]
+  }
+]
