@@ -1,7 +1,6 @@
 import json
 import os
 import re
-
 import openai
 from dotenv import load_dotenv
 
@@ -17,23 +16,18 @@ def load_character(path: str) -> dict:
         return json.load(f)
 
 
-def make_prompt(char: dict, memory: str, partner: dict) -> str:
-    return f"""
-Your name is {char['name']}. You are {', '.join(char['traits'])}.
-You are {char['age']} years old and you work as {char['occupation']}.
-
-Interlocutor: {partner['name']}.
-
-Your last conversation:
-<Start of conversation>
-{memory}
-<End of conversation>
-
-Your task is to reply naturally, in your own style, with a short utterance.
-""".strip()
+def build_messages(history, speaker, system_prompt):
+    messages = [
+        {"role": "system", "content": system_prompt},
+        {"role": "user", "content": "Start the conversation"},
+    ]
+    for msg in history:
+        role = "assistant" if msg["role"] == speaker["name"] else "user"
+        messages.append({"role": role, "content": msg["content"]})
+    return messages
 
 
-def chat(speaker: dict, prompt: str) -> str:
+def chat(speaker: dict, listener: dict, history: list) -> str:
     traits = ", ".join(speaker.get("traits", []))
     system_prompt = (
         f"You are role‑playing as {speaker['name']} — "
@@ -46,13 +40,10 @@ def chat(speaker: dict, prompt: str) -> str:
         "4. If partner greets you first, you may greet back once.\n"
         "5. If there is **no previous conversation, initiate the dialogue with a friendly greeting**."
     )
-
+    messages = build_messages(history, speaker, system_prompt)
     rsp = client.chat.completions.create(
         model=LLM_MODEL,
-        messages=[
-            {"role": "system", "content": system_prompt},
-            {"role": "user", "content": prompt},
-        ],
+        messages=messages,
         temperature=0.8,
         max_tokens=2048,
     )
@@ -90,18 +81,17 @@ def postprocess_reply(reply):
 
 
 def main() -> None:
-    char_a = load_character("assets/characters/20250719_223805_anna_petrova.json")
-    char_b = load_character("assets/characters/20250719_223824_sergey_ivanov.json")
-    memory_en, memory_ru = "", ""
+    char_a = load_character("assets/characters/anna_petrova.json")
+    char_b = load_character("assets/characters/sergey_ivanov.json")
+    history = []
     speaker, listener = char_a, char_b
 
     print("Начинаем симуляцию диалога!\n")
     for _ in range(20):
-        prompt = make_prompt(speaker, memory_en, listener)
-        reply_en = postprocess_reply(chat(speaker, prompt))
+        reply_en = postprocess_reply(chat(speaker, listener, history))
         reply_ru = postprocess_reply(translate_to_ru(reply_en))
         print(f"{speaker['name']}: {reply_ru}")
-        memory_en += f"{speaker['name']}: {reply_en}\n"
+        history.append({"role": speaker["name"], "content": reply_en})
         speaker, listener = listener, speaker
 
 
