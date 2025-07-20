@@ -1,27 +1,27 @@
 {
   "id": 1,
-  "name": "Анна Петрова",
+  "name": "Anna Petrova",
   "age": 27,
-  "gender": "женский",
+  "gender": "female",
   "traits": [
-    "дружелюбная",
-    "застенчивая",
-    "наблюдательная",
-    "склонна к самоанализу",
-    "готова помочь"
+    "friendly",
+    "shy",
+    "observant",
+    "self‑reflective",
+    "helpful"
   ],
   "habits": [
-    "гуляет по парку",
-    "пишет дневник",
-    "пьёт чай по утрам"
+    "walks in the park",
+    "writes a diary",
+    "drinks tea in the mornings"
   ],
-  "occupation": "библиотекарь в городской библиотеке",
-  "marital_status": "не замужем",
-  "living": "живет одна",
+  "occupation": "librarian in a city library",
+  "marital_status": "single",
+  "living": "lives alone",
   "key_facts": [
-    "любит детективы и путешествия",
-    "боится публичных выступлений",
-    "мечтает написать свою книгу",
-    "поддерживает теплые отношения с родителями из другого города"
+    "loves detective stories and traveling",
+    "fears public speaking",
+    "dreams of writing her own book",
+    "maintains warm relationships with parents from another city"
   ]
 }

@@ -1,32 +1,32 @@
 {
   "id": 2,
-  "name": "Сергей Иванов",
+  "name": "Sergey Ivanov",
   "age": 34,
-  "gender": "мужской",
+  "gender": "male",
   "traits": [
-    "общительный",
-    "энергичный",
-    "упрямый",
-    "оптимистичный",
-    "иногда вспыльчивый"
+    "sociable",
+    "energetic",
+    "stubborn",
+    "optimistic",
+    "sometimes hot‑tempered"
   ],
   "habits": [
-    "бегает по утрам",
-    "обсуждает новости",
-    "играет в шахматы в парке"
+    "runs in the mornings",
+    "discusses news",
+    "plays chess in the park"
   ],
-  "occupation": "менеджер по продажам в IT-компании",
-  "marital_status": "женат",
+  "occupation": "sales manager at an IT company",
+  "marital_status": "married",
   "children": [
     {
-      "name": "Илья",
+      "name": "Ilya",
       "age": 5
     }
   ],
-  "living": "иногда работает из дома, чтобы больше времени проводить с семьей",
+  "living": "sometimes works from home to spend more time with family",
   "key_facts": [
-    "любит рассказывать шутки и знакомиться с новыми людьми",
-    "приглашает друзей на ужины, любит пробовать новую еду",
-    "мечтает выиграть городской марафон"
+    "loves telling jokes and meeting new people",
+    "invites friends to dinners, loves trying new food",
+    "dreams of winning the city marathon"
   ]
 }

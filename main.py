@@ -1,47 +1,70 @@
-import openai
 import json
 import os
-import time
 import re
 
+import openai
 from dotenv import load_dotenv
 
 load_dotenv()
 LLM_API_BASE = os.getenv("LLM_API_BASE")
-LLM_MODEL = os.getenv("LLM_MODEL", "llama3")
+LLM_MODEL = os.getenv("LLM_MODEL")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 client = openai.OpenAI(api_key=OPENAI_API_KEY, base_url=LLM_API_BASE)
 
 
-def load_character(path):
+def load_character(path: str) -> dict:
     with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 
-def make_prompt(character, memory, interlocutor):
+def make_prompt(char: dict, memory: str, partner: dict) -> str:
     return f"""
-Тебя зовут {character['name']}. Ты: {', '.join(character.get('traits', []))}.
-Тебе {character['age']} лет, ты работаешь: {character.get('occupation', '')}.
+Your name is {char['name']}. You are {', '.join(char['traits'])}.
+You are {char['age']} years old and you work as {char['occupation']}.
 
-Собеседник: {interlocutor['name']}.
+Interlocutor: {partner['name']}.
 
-Ваша последняя беседа:
-<Начало беседы>
+Your last conversation:
+<Start of conversation>
 {memory}
-<Окончание беседы>
+<End of conversation>
 
-Твоя задача — ответить собеседнику естественно, в своей манере, короткой репликой.
-"""
+Your task is to reply naturally, in your own style, with a short utterance.
+""".strip()
 
 
-def llm_chat(prompt):
-    response = client.chat.completions.create(
+def chat(prompt: str) -> str:
+    rsp = client.chat.completions.create(
         model=LLM_MODEL,
         messages=[{"role": "user", "content": prompt}],
         temperature=0.8,
-        max_tokens=10000,
+        max_tokens=2048,
     )
-    return response.choices[0].message.content.strip()
+    return rsp.choices[0].message.content.strip()
+
+
+def translate_to_ru(text: str) -> str:
+    rsp = client.chat.completions.create(
+        model=LLM_MODEL,
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "You are a translation engine that converts English text into "
+                    "Russian while preserving style and tone. "
+                    "Output ONLY the translated Russian text — no explanations, "
+                    "no alternatives, no markdown formatting."
+                )
+            },
+            {
+                "role": "user",
+                "content": text
+            }
+        ],
+        temperature=0.0,
+        max_tokens=20480,
+    )
+    return rsp.choices[0].message.content.strip()
 
 
 def postprocess_reply(reply):
@@ -50,22 +73,20 @@ def postprocess_reply(reply):
     return reply.strip()
 
 
-def main():
-    char1 = load_character("assets/characters/20250719_223805_anna_petrova.json")
-    char2 = load_character("assets/characters/20250719_223824_sergey_ivanov.json")
-
-    memory = ""
-    current_speaker, other = char1, char2
+def main() -> None:
+    char_a = load_character("assets/characters/20250719_223805_anna_petrova.json")
+    char_b = load_character("assets/characters/20250719_223824_sergey_ivanov.json")
+    memory_en, memory_ru = "", ""
+    speaker, listener = char_a, char_b
 
     print("Начинаем симуляцию диалога!\n")
-
-    for i in range(20):
-        prompt = make_prompt(current_speaker, memory, other)
-        reply = postprocess_reply(llm_chat(prompt))
-        print(f"{current_speaker['name']}: {reply}")
-        memory += f"{current_speaker['name']}: {reply}\n"
-        current_speaker, other = other, current_speaker
-        time.sleep(1)
+    for _ in range(20):
+        prompt = make_prompt(speaker, memory_en, listener)
+        reply_en = postprocess_reply(chat(prompt))
+        reply_ru = postprocess_reply(translate_to_ru(reply_en))
+        print(f"{speaker['name']}: {reply_ru}")
+        memory_en += f"{speaker['name']}: {reply_en}\n"
+        speaker, listener = listener, speaker
 
 
 if __name__ == "__main__":
