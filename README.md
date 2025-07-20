@@ -45,9 +45,10 @@
 
 ```bash
 git clone ...
-cd ai-virtual-world
-# Установка зависимостей
-pip install -r requirements.txt
+# Переходим в каталог репозитория
+cd AI-World
+# Установка зависимостей через Poetry
+poetry install
 # Запуск симуляции
 python main.py
 ```
