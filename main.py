@@ -1,7 +1,7 @@
 import json
 import os
+import random
 import re
-from itertools import cycle, islice
 
 import openai
 from dotenv import load_dotenv
@@ -111,12 +111,12 @@ def main() -> None:
         raise RuntimeError("Нужно минимум два персонажа в characters.json")
 
     history = []
-    print("Начинаем симуляцию группового диалога!\n")
+    print("Начинаем симуляцию хаотичного группового диалога!\n")
 
-    speakers_cycle = cycle(all_characters)
-    for speaker in islice(speakers_cycle, 20):
+    for _ in range(20):
+        speaker = random.choice(all_characters)
         reply_en = postprocess_reply(chat(speaker, history))
-        if reply_en.strip().upper().startswith("PASS"):
+        if reply_en.strip().upper().startswith("PASS") or len(reply_en) == 0:
             print(f"{speaker['name']}: {reply_en}")
             continue
         reply_ru = postprocess_reply(translate_to_ru(reply_en))
