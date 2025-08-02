@@ -24,15 +24,20 @@ def build_messages(history, speaker, system_prompt):
             "role": "system",
             "content": (
                 "Before replying, decide whether you want to say something or stay silent.\n"
-                "Use 'PASS' if you'd rather not speak."
+                "Use 'PASS' if you'd rather not speak.\n"
+                "You will see dialogue turns in the format: '<Character Name>: <text>'"
             )
         },
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": "Start the conversation"},
     ]
     for msg in history:
-        role = "assistant" if msg["role"] == speaker["name"] else "user"
-        messages.append({"role": role, "content": msg["content"]})
+        is_speaker = msg["role"] == speaker["name"]
+        role = "assistant" if is_speaker else "user"
+        messages.append({
+            "role": role,
+            "content": msg['content'] if is_speaker else f"{msg['role']}: {msg['content']}"
+        })
     return messages
 
 
@@ -63,6 +68,7 @@ def chat(speaker: dict, history: list) -> str:
         "7. If you don't want to say anything — reply with PASS (in uppercase).\n"
         "8. You may say PASS if:\n - You were not addressed directly.\n"
         " - The topic does not interest your character.\n - You feel it's not your turn or others should speak."
+        f"9. You are only speaking as {speaker['name']} — do not include your name in your reply.\n"
     )
 
     messages = build_messages(history, speaker, system_prompt)
