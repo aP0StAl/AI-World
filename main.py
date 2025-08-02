@@ -38,6 +38,11 @@ def build_messages(history, speaker, system_prompt):
             "role": role,
             "content": msg['content'] if is_speaker else f"{msg['role']}: {msg['content']}"
         })
+    if messages[-1]["role"] == "assistant":
+        messages.append({
+            "role": "user",
+            "content": "continue or say pass"
+        })
     return messages
 
 
