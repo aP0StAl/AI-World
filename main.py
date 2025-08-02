@@ -20,6 +20,13 @@ def load_characters(path: str) -> list[dict]:
 
 def build_messages(history, speaker, system_prompt):
     messages = [
+        {
+            "role": "system",
+            "content": (
+                "Before replying, decide whether you want to say something or stay silent.\n"
+                "Use 'PASS' if you'd rather not speak."
+            )
+        },
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": "Start the conversation"},
     ]
@@ -53,6 +60,9 @@ def chat(speaker: dict, history: list) -> str:
         "4. If partner greets you first, you may greet back once.\n"
         "5. If there is **no previous conversation, initiate the dialogue with a friendly greeting**.\n"
         "6. The reply must NOT exceed **20 words**. If it exceeds — shorten it.\n"
+        "7. If you don't want to say anything — reply with PASS (in uppercase).\n"
+        "8. You may say PASS if:\n - You were not addressed directly.\n"
+        " - The topic does not interest your character.\n - You feel it's not your turn or others should speak."
     )
 
     messages = build_messages(history, speaker, system_prompt)
@@ -106,6 +116,9 @@ def main() -> None:
     speakers_cycle = cycle(all_characters)
     for speaker in islice(speakers_cycle, 20):
         reply_en = postprocess_reply(chat(speaker, history))
+        if reply_en.strip().upper().startswith("PASS"):
+            print(f"{speaker['name']}: {reply_en}")
+            continue
         reply_ru = postprocess_reply(translate_to_ru(reply_en))
         print(f"{speaker['name']}: {reply_ru}")
         history.append({"role": speaker["name"], "content": reply_en})
